@@ -1,0 +1,29 @@
+#%Module1.0#####################################################################
+
+proc ModulesHelp { } {
+
+        puts stderr " "
+        puts stderr "This module loads cereal"
+        
+
+}
+module-whatis "
+\r
+\r<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>
+\r
+\rName: cereal
+\rStatus: READY
+\rVersion:<<VERSION>>
+\rCategory:  Library,Software
+\rDescription:
+\rA C++11 library for serialization.
+\r
+\r*Documentation available at http://uscilab.github.io/cereal/
+\r installed by <<USER>> <<DATE>>
+\r
+\r<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>
+"
+
+set             root            <<INSTALL>>
+prepend-path    INCLUDE         $root/include
+
