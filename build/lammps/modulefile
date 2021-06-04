@@ -1,0 +1,35 @@
+#%Module1.0#####################################################################
+
+proc ModulesHelp { } {
+
+        puts stderr " "
+        puts stderr "This module loads lammps"
+        
+
+}
+module-whatis "
+\r
+\r<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>
+\r
+\rName: lammps
+\rStatus: READY
+\rVersion:<<VERSION>>
+\rCategory:  Library,Software,Research Software
+\rDescription:
+\rLAMMPS Molecular Dynamics Simulator
+\r
+\r*Documentation available at http://doc.lammps.org
+\r installed by <<USER>> <<DATE>>
+\r
+\r<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>
+"
+
+module load gcc/8.4.0
+module load mpich/3.3.2
+module load fftw/3.3.9
+
+set             root                <<INSTALL>>
+prepend-path    PATH                $root/bin
+setenv          LAMMPS_POTENTIALS   $root/share/lammps/potentials
+setenv          MSI2LMP_LIBRARY     $root/share/lammps/frc_files
+
