@@ -6,8 +6,8 @@ module load cmake/3.19.1
 module load fftw/3.3.9
 
 package=lammps
-version=29Oct2020
-lammps_label=stable
+version=31Aug2021
+lammps_label=patch
 
 # build info
 user=$(whoami)
