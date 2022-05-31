@@ -202,7 +202,7 @@ conda remove hoomd
 Regardless of how the environment was activated, you deactivate it the same way:
 
 ```bash
-deactivate
+conda deactivate
 ```
 
 To remove an environment created by name (`-n`), first deactivate it then use:
