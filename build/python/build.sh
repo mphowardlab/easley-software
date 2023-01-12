@@ -1,19 +1,16 @@
 #!/bin/bash
 
-# load intel first in case packages use tbb
-module load intel/2021.1
-module load python/3.8.6
-
 # compilers
 module load gcc/8.4.0
+module load tbb/2021.1.1
 module load mpich/3.3.2
 module load cmake/3.19.1
+module load python/3.9.2
 
 package=python
-version=2021Apr
-azplugins=0.10.1
-fieldkit=master
-hoomd=2.9.6
+version=2023Jan
+azplugins=0.12.0
+hoomd=2.9.7
 
 # build info
 user=$(whoami)
@@ -46,18 +43,6 @@ pip3 install -r requirements.txt
 # this is the sitepackages directory where packages will get installed
 # we use it to check if we've already built things that take a long time to install
 sitepackages=$(python3 -c "import site; print(site.getsitepackages()[0])")
-
-# install fieldkit
-if [ ! -d "$sitepackages/fieldkit" ]
-then
-    mkdir -p $build/fieldkit && \
-    cd $build/fieldkit && \
-    curl -sSLO https://github.com/mphoward/fieldkit/archive/refs/heads/${fieldkit}.zip && \
-    unzip ${fieldkit}.zip && \
-    pip3 install -r fieldkit-${fieldkit}/requirements.txt && \
-    cd fieldkit-${fieldkit} && \
-    python3 setup.py install
-fi
 
 # build hoomd
 if [ ! -d "$sitepackages/hoomd" ]
