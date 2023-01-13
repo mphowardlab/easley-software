@@ -1,17 +1,6 @@
 freud-analysis
 gsd
 lammpsio
-matplotlib
-MDAnalysis
-mdtraj
 mpi4py
-networkx
 numpy
-packaging
-pandas
-parameterized
-pytest
-scikit-image
-scikit-learn
 scipy
-sympy

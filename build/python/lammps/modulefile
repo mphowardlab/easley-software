@@ -3,22 +3,27 @@
 proc ModulesHelp { } {
 
         puts stderr " "
-        puts stderr "This module loads lammps"
-        
+        puts stderr "This module loads LAMMPS and related software"
+
 
 }
 module-whatis "
 \r
 \r<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>
 \r
-\rName: lammps
+\rName: python
 \rStatus: READY
 \rVersion:<<VERSION>>
 \rCategory:  Library,Software,Research Software
 \rDescription:
-\rLAMMPS Molecular Dynamics Simulator
+\rPython virtual environment with useful packages installed for simulations.
 \r
-\r*Documentation available at http://doc.lammps.org
+\r To extend the environment, use:
+\r
+\r      pip install --target ~/myproject/software/extra-env numpy
+\r
+\r to put packages in an additional directory. Make sure to extend your PYTHONPATH!
+\r
 \r installed by <<USER>> <<DATE>>
 \r
 \r<<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>><<>>
@@ -27,9 +32,17 @@ module-whatis "
 module load gcc/8.4.0
 module load mpich/3.3.2
 module load fftw/3.3.9
+module load lapack/3.9.0
+module load python/3.11.1
+
 
 set             root                <<INSTALL>>
-prepend-path    PATH                $root/bin
+prepend-path    LD_LIBRARY_PATH     $root/lib
 setenv          LAMMPS_POTENTIALS   $root/share/lammps/potentials
 setenv          MSI2LMP_LIBRARY     $root/share/lammps/frc_files
 
+if { [module-info mode load] } {
+    system "source $root/bin/activate;"
+} elseif { [module-info mode remove] || [module-info mode switch] } {
+    system "deactivate;"
+}
