@@ -3,7 +3,7 @@
 module load cmake/3.19.1
 
 package=pybind11
-version=2.6.2
+version=2.10.3
 
 # build info
 user=$(whoami)

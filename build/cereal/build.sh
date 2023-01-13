@@ -3,7 +3,7 @@
 module load cmake/3.19.1
 
 package=cereal
-version=1.3.0
+version=1.3.2
 
 # build info
 user=$(whoami)
