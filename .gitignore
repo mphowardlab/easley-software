@@ -1,3 +1,4 @@
 build/fftw/fftw
+env
 install
 modulefiles
