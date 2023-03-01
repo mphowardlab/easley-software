@@ -45,20 +45,32 @@ else:
     end_date = start_date + max_report_period
 report_hours = (end_date - start_date).total_seconds()/3600.
 
+if start_date >= datetime.datetime(2023, 3, 1):
+    raise ValueError("Need to configure new capacity")
+else:
+    capacity = {
+        "chen_std": {
+            "aja0056_lab": 2,
+            "cak0071_lab": 2,
+            "mph0043_lab": 2,
+            "szc0113_lab": 1,
+            "department": 4,
+        },
+        "chen_bg2": {
+            "rjp0029_lab": 1,
+            "szc0113_lab": 2,
+            "department": 2,
+        },
+    }
+
 for partition in args.partition:
-    # run sinfo to get number of cores in partition
-    # this assumes the size of the partition has not changed
-    result = subprocess.run([
-        "sinfo",
-        "-s",
-        "--partition", partition,
-        "--format", "%C",
-        "--noheader"
-    ], check=True, capture_output=True, text=True)
-    output = result.stdout.strip()
-    if len(output) == 0:
+    try:
+        nodes = capacity[partition]
+    except KeyError:
         raise ValueError(f"Partition {partition} not found")
-    num_cores = int(output.split("/")[-1])
+    num_nodes = sum(nodes.values())
+    # 48 cores per node for everything we have
+    num_cores = 48*num_nodes
 
     # run sacct to pull usage of our partitions
     result = subprocess.run([
@@ -90,19 +102,21 @@ for partition in args.partition:
     usage_report = []
     usage_report.append([
         "*total*",
+        num_nodes,
         core_hours["total"],
         100*core_hours["total"]/core_hours["capacity"],
     ])
     for account in accounts:
         usage_report.append([
             f"`{account}`",
+            nodes.get(account, 0),
             core_hours[account],
             100*core_hours[account]/core_hours["capacity"],
             100*core_hours[account]/core_hours["total"],
         ])
     report_table = tabulate.tabulate(
         usage_report,
-        headers=["account","CPU hours","% capacity","% total"],
+        headers=["account", "nodes", "CPU hours used", "% capacity used", "% total used"],
         floatfmt=".1f",
         tablefmt="github",
     )
