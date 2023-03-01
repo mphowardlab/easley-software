@@ -116,7 +116,7 @@ for partition in args.partition:
         ])
     report_table = tabulate.tabulate(
         usage_report,
-        headers=["account", "nodes", "CPU hours used", "% capacity used", "% total used"],
+        headers=["account", "nodes owned", "CPU hours used", "% capacity used", "% total used"],
         floatfmt=".1f",
         tablefmt="github",
     )
