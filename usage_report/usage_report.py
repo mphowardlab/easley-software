@@ -45,10 +45,8 @@ else:
     end_date = start_date + max_report_period
 report_hours = (end_date - start_date).total_seconds()/3600.
 
-if start_date >= datetime.datetime(2023, 3, 1):
-    raise ValueError("Need to configure new capacity")
-else:
-    capacity = {
+capacity = {
+    "phase1": {
         "chen_std": {
             "aja0056_lab": 2,
             "cak0071_lab": 2,
@@ -61,7 +59,28 @@ else:
             "szc0113_lab": 2,
             "department": 2,
         },
-    }
+    },
+    "phase2": {
+        "chen_std": {
+            "aja0056_lab": 2,
+            "cak0071_lab": 4,
+            "mph0043_lab": 6,
+            "rjp0029_lab": 5,
+            "szc0113_lab": 1,
+            "department": 8,
+        },
+        "chen_bg2": {
+            "rjp0029_lab": 1,
+            "szc0113_lab": 2,
+            "department": 2,
+        },
+    },
+}
+phase2_launch = datetime.datetime(2023, 3, 9)
+if start_date < phase2_launch and end_date < phase2_launch:
+    capacity = capacity["phase1"]
+else:
+    capacity = capacity["phase2"]
 
 for partition in args.partition:
     try:
@@ -92,8 +111,8 @@ for partition in args.partition:
 
     # compute core-hour capacity, total usage, and usage by group
     core_hours = {}
-    core_hours['capacity'] = num_cores*report_hours
-    core_hours['total'] = numpy.sum(usage_data["CPUTimeRAW"])/3600.
+    core_hours["capacity"] = num_cores*report_hours
+    core_hours["total"] = numpy.sum(usage_data["CPUTimeRAW"])/3600.
     accounts = sorted(list(set(usage_data["Account"])))
     for account in accounts:
         core_hours[account] = numpy.sum(usage_data.loc[usage_data["Account"] == account,"CPUTimeRAW"])/3600.
@@ -116,7 +135,7 @@ for partition in args.partition:
         ])
     report_table = tabulate.tabulate(
         usage_report,
-        headers=["account", "nodes owned", "CPU hours used", "% capacity used", "% total used"],
+        headers=["account", "nodes reserved", "CPU hours used", "% capacity used", "% total used"],
         floatfmt=".1f",
         tablefmt="github",
     )
