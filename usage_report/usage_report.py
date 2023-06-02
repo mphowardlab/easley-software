@@ -126,12 +126,17 @@ for partition in args.partition:
         100*core_hours["total"]/core_hours["capacity"],
     ])
     for account in accounts:
+        if core_hours["total"] > 0:
+            percent_total = 100*core_hours[account]/core_hours["total"]
+        else:
+            percent_total = 0
+
         usage_report.append([
             f"`{account}`",
             nodes.get(account, 0),
             core_hours[account],
             100*core_hours[account]/core_hours["capacity"],
-            100*core_hours[account]/core_hours["total"],
+            percent_total,
         ])
     report_table = tabulate.tabulate(
         usage_report,
