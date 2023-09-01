@@ -104,8 +104,6 @@ for partition in args.partition:
         "--delimiter", ","
     ], check=True, capture_output=True, text=True)
     usage_data = pandas.read_csv(io.StringIO(result.stdout))
-    if usage_data.shape[0] == 0:
-        raise ValueError(f"No job data found for partition {partition}")
     # slurm adds an empty last column, drop it
     usage_data = usage_data.iloc[:,:-1]
 
