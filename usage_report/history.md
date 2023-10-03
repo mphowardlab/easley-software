@@ -1,5 +1,27 @@
 # Usage history
 
+## 2023-09
+
+`chen_std` from 2023-09-01 to 2023-09-30
+
+| account       |   nodes reserved |   CPU hours used |   % capacity used |   % total used |
+|---------------|------------------|------------------|-------------------|----------------|
+| *total*       |               26 |         254927.6 |              28.4 |                |
+| `aja0056_lab` |                2 |            734.3 |               0.1 |            0.3 |
+| `cak0071_lab` |                4 |            360.2 |               0.0 |            0.1 |
+| `mph0043_lab` |                6 |          91269.9 |              10.2 |           35.8 |
+| `rjp0029_lab` |                5 |         106283.3 |              11.8 |           41.7 |
+| `szc0113_lab` |                1 |          56279.8 |               6.3 |           22.1 |
+
+`chen_bg2` from 2023-09-01 to 2023-09-30
+
+| account   |   nodes reserved |   CPU hours used |   % capacity used |
+|-----------|------------------|------------------|-------------------|
+| *total*   |                5 |              0.0 |               0.0 |
+
+Note: usage during this period was atypical because of maintenance during the week of
+2023-09-09.
+
 ## 2023-08
 
 `chen_std` from 2023-08-01 to 2023-08-31
