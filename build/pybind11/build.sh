@@ -1,9 +1,10 @@
 #!/bin/bash
 
+module load gcc/8.4.0
 module load cmake/3.19.1
 
 package=pybind11
-version=2.10.3
+version=2.11.1
 
 # build info
 user=$(whoami)

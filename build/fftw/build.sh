@@ -5,7 +5,7 @@ module load mpich/3.3.2
 module load cmake/3.19.1
 
 package=fftw
-version=3.3.9
+version=3.3.10
 
 # build info
 user=$(whoami)
