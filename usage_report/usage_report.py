@@ -62,12 +62,11 @@ capacity = {
     },
     "phase2": {
         "chen_std": {
-            "aja0056_lab": 2,
             "cak0071_lab": 4,
             "mph0043_lab": 6,
             "rjp0029_lab": 5,
             "szc0113_lab": 1,
-            "department": 8,
+            "department": 10,
         },
         "chen_bg2": {
             "rjp0029_lab": 1,
@@ -81,6 +80,13 @@ if start_date < phase2_launch and end_date < phase2_launch:
     capacity = capacity["phase1"]
 else:
     capacity = capacity["phase2"]
+def get_capacity_key(account):
+    """Get the capacity key associated with an account."""
+    if account in ("edenmar_lab", "aja0056_lab"):
+        account_key = "department"
+    else:
+        account_key = account
+    return account_key
 
 for partition in args.partition:
     try:
@@ -112,8 +118,13 @@ for partition in args.partition:
     core_hours["capacity"] = num_cores*report_hours
     core_hours["total"] = numpy.sum(usage_data["CPUTimeRAW"])/3600.
     accounts = sorted(list(set(usage_data["Account"])))
+    account_core_hours = {}
     for account in accounts:
-        core_hours[account] = numpy.sum(usage_data.loc[usage_data["Account"] == account,"CPUTimeRAW"])/3600.
+        account_key = get_capacity_key(account)
+        if account_key not in account_core_hours:
+            account_core_hours[account_key] = 0
+        account_core_hours[account_key] += numpy.sum(usage_data.loc[usage_data["Account"] == account,"CPUTimeRAW"])/3600.
+    assert sum(account_core_hours.values()) == core_hours["total"], "Some jobs were not assigned to a known account"
 
     # generate a table of results in Markdown format
     usage_report = []
@@ -123,17 +134,18 @@ for partition in args.partition:
         core_hours["total"],
         100*core_hours["total"]/core_hours["capacity"],
     ])
-    for account in accounts:
+    for account in nodes:
+        account_hours = account_core_hours.get(account, 0)
         if core_hours["total"] > 0:
-            percent_total = 100*core_hours[account]/core_hours["total"]
+            percent_total = 100*account_hours/core_hours["total"]
         else:
             percent_total = 0
 
         usage_report.append([
             f"`{account}`",
-            nodes.get(account, 0),
-            core_hours[account],
-            100*core_hours[account]/core_hours["capacity"],
+            nodes[account],
+            account_hours,
+            100*account_hours/core_hours["capacity"],
             percent_total,
         ])
     report_table = tabulate.tabulate(
