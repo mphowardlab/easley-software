@@ -1,5 +1,30 @@
 # Usage history
 
+## 2024-03
+
+`chen_std` from 2024-03-01 to 2024-03-31
+
+| account       |   nodes reserved |   CPU hours used |   % capacity used |   % total used |
+|---------------|------------------|------------------|-------------------|----------------|
+| *total*       |               26 |         493194.2 |              53.1 |                |
+| `cak0071_lab` |                4 |          81275.7 |               8.8 |           16.5 |
+| `mph0043_lab` |                6 |         179950.4 |              19.4 |           36.5 |
+| `rjp0029_lab` |                5 |         188854.5 |              20.3 |           38.3 |
+| `szc0113_lab` |                1 |          43113.6 |               4.6 |            8.7 |
+| `department`  |               10 |              0.0 |               0.0 |            0.0 |
+
+`chen_bg2` from 2024-03-01 to 2024-03-31
+
+| account       |   nodes reserved |   CPU hours used |   % capacity used |   % total used |
+|---------------|------------------|------------------|-------------------|----------------|
+| *total*       |                5 |           5280.4 |               3.0 |                |
+| `rjp0029_lab` |                1 |              0.0 |               0.0 |            0.0 |
+| `szc0113_lab` |                2 |           5280.4 |               3.0 |          100.0 |
+| `department`  |                2 |              0.0 |               0.0 |            0.0 |
+
+Note: usage during this period was atypical because of maintenance from 2024-03-11 to
+2024-03-14.
+
 ## 2024-02
 
 `chen_std` from 2024-02-01 to 2024-02-29
