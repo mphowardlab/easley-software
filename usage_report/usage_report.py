@@ -124,7 +124,7 @@ for partition in args.partition:
         if account_key not in account_core_hours:
             account_core_hours[account_key] = 0
         account_core_hours[account_key] += numpy.sum(usage_data.loc[usage_data["Account"] == account,"CPUTimeRAW"])/3600.
-    assert sum(account_core_hours.values()) == core_hours["total"], "Some jobs were not assigned to a known account"
+    assert numpy.isclose(sum(account_core_hours.values()), core_hours["total"]), "Some jobs were not assigned to a known account"
 
     # generate a table of results in Markdown format
     usage_report = []
