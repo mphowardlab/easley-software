@@ -10,17 +10,18 @@ module load lapack/3.9.0
 module load eigen/3.4.0
 
 module load python/3.11.1
-module load pybind11/2.11.1
+module load pybind11/2.13.1
 
 module load cmake/3.19.1
 
 package=python
-version=2023Oct
-hoomd=4.2.1
+version=2024Aug
+hoomd=4.8.2
+azplugins=1.0.0
 lammps_label=stable
-lammps_version=2Aug2023_update1
+lammps_version=2Aug2023_update3
 lammps=${lammps_label}_${lammps_version}
-contents="hoomd ${hoomd}, lammps ${lammps_version}"
+contents="hoomd ${hoomd}, azplugins ${azplugins}, lammps ${lammps_version}"
 
 # build info
 user=$(whoami)
@@ -48,7 +49,7 @@ sed -e "s|<<VERSION>>|${version}|g" -e "s|<<USER>>|${user}|g" -e "s|<<INSTALL>>|
 python3 -m venv $install && \
 source $install/bin/activate && \
 pip3 install --upgrade pip && \
-pip3 install --no-cache-dir -r requirements.txt && \
+pip3 install --no-cache-dir -r requirements.txt
 
 # build hoomd
 mkdir -p $build/hoomd && \
@@ -60,20 +61,34 @@ rm hoomd/example_plugins && \
 mkdir build && \
 cd build && \
 cmake .. \
-    -DBUILD_DEM=OFF \
-    -DBUILD_HPMC=OFF \
     -DBUILD_METAL=OFF \
-    -DBUILD_MPCD=OFF \
     -DBUILD_TESTING=OFF \
-    -DBUILD_VALIDATION=OFF \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_FLAGS=-march=native \
     -DCMAKE_CXX_FLAGS=-march=native \
     -DENABLE_GPU=OFF \
     -DENABLE_LLVM=OFF \
     -DENABLE_MPI=ON \
+    -DENABLE_TBB=OFF \
     -DHOOMD_LONGREAL_SIZE=64 \
     -DHOOMD_SHORTREAL_SIZE=64 \
-    -Dpybind11_DIR=$GROUP/software/install/pybind11/2.11.1/share/cmake/pybind11 && \
+    -Dpybind11_DIR=$GROUP/software/install/pybind11/2.13.1/share/cmake/pybind11 && \
+make install -j 4
+
+# build azplugins
+mkdir -p $build/azplugins && \
+cd $build/azplugins && \
+curl -sSLO https://github.com/mphowardlab/azplugins/archive/refs/tags/v${azplugins}.tar.gz && \
+tar -xzf v${azplugins}.tar.gz && \
+cd azplugins-${azplugins} && \
+mkdir build && \
+cd build && \
+cmake .. \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_C_FLAGS=-march=native \
+    -DCMAKE_CXX_FLAGS=-march=native \
+    -DPython_EXECUTABLE=`which python` \
+    -Dpybind11_DIR=$GROUP/software/install/pybind11/2.13.1/share/cmake/pybind11 && \
 make install -j 4
 
 # build lammps
@@ -99,7 +114,8 @@ cmake ../cmake \
     -DPython_FIND_STRATEGY=LOCATION \
     -DFFT=FFTW3 \
     -DCMAKE_PREFIX_PATH=$GROUP/software/install/fftw/3.3.10/lib64 && \
-make install -j 4
+make install -j 4 && \
+make install-python
 
 mkdir -p $module && \
 cp $build/modulefile $module/$version && \

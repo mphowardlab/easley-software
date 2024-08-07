@@ -3,7 +3,7 @@
 module load gcc/8.4.0
 
 package=packmol
-version=20.14.2
+version=20.15.0
 
 # build info
 user=$(whoami)
