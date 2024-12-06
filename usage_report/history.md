@@ -1,5 +1,74 @@
 # Usage history
 
+## 2024-11
+
+`chen_std` from 2024-11-01 to 2024-11-30
+
+| account       |   nodes reserved |   CPU hours used |   % capacity used |   % total used |
+|---------------|------------------|------------------|-------------------|----------------|
+| *total*       |               26 |         357545.6 |              39.8 |                |
+| `cak0071_lab` |                4 |              0.0 |               0.0 |            0.0 |
+| `mph0043_lab` |                6 |          43549.4 |               4.8 |           12.2 |
+| `rjp0029_lab` |                5 |          10695.1 |               1.2 |            3.0 |
+| `szc0113_lab` |                1 |         297925.0 |              33.2 |           83.3 |
+| `department`  |               10 |           5376.1 |               0.6 |            1.5 |
+
+`chen_bg2` from 2024-11-01 to 2024-11-30
+
+| account       |   nodes reserved |   CPU hours used |   % capacity used |   % total used |
+|---------------|------------------|------------------|-------------------|----------------|
+| *total*       |                5 |          93736.7 |              54.2 |                |
+| `rjp0029_lab` |                1 |              0.0 |               0.0 |            0.0 |
+| `szc0113_lab` |                2 |          93736.7 |              54.2 |          100.0 |
+| `department`  |                2 |              0.0 |               0.0 |            0.0 |
+
+## 2024-10
+
+`chen_std` from 2024-10-01 to 2024-10-31
+
+| account       |   nodes reserved |   CPU hours used |   % capacity used |   % total used |
+|---------------|------------------|------------------|-------------------|----------------|
+| *total*       |               26 |         730743.3 |              78.7 |                |
+| `cak0071_lab` |                4 |             24.8 |               0.0 |            0.0 |
+| `mph0043_lab` |                6 |         198530.3 |              21.4 |           27.2 |
+| `rjp0029_lab` |                5 |         256907.7 |              27.7 |           35.2 |
+| `szc0113_lab` |                1 |         274896.6 |              29.6 |           37.6 |
+| `department`  |               10 |            384.0 |               0.0 |            0.1 |
+
+`chen_bg2` from 2024-10-01 to 2024-10-31
+
+| account       |   nodes reserved |   CPU hours used |   % capacity used |   % total used |
+|---------------|------------------|------------------|-------------------|----------------|
+| *total*       |                5 |          57861.9 |              32.4 |                |
+| `rjp0029_lab` |                1 |              0.0 |               0.0 |            0.0 |
+| `szc0113_lab` |                2 |          57861.9 |              32.4 |          100.0 |
+| `department`  |                2 |              0.0 |               0.0 |            0.0 |
+
+## 2024-09
+
+`chen_std` from 2024-09-01 to 2024-09-30
+
+| account       |   nodes reserved |   CPU hours used |   % capacity used |   % total used |
+|---------------|------------------|------------------|-------------------|----------------|
+| *total*       |               26 |         572809.7 |              63.7 |                |
+| `cak0071_lab` |                4 |              0.0 |               0.0 |            0.0 |
+| `mph0043_lab` |                6 |          68530.4 |               7.6 |           12.0 |
+| `rjp0029_lab` |                5 |         247473.8 |              27.5 |           43.2 |
+| `szc0113_lab` |                1 |         256805.5 |              28.6 |           44.8 |
+| `department`  |               10 |              0.0 |               0.0 |            0.0 |
+
+`chen_bg2` from 2024-09-01 to 2024-09-30
+
+| account       |   nodes reserved |   CPU hours used |   % capacity used |   % total used |
+|---------------|------------------|------------------|-------------------|----------------|
+| *total*       |                5 |              0.0 |               0.0 |                |
+| `rjp0029_lab` |                1 |              0.0 |               0.0 |              0 |
+| `szc0113_lab` |                2 |              0.0 |               0.0 |              0 |
+| `department`  |                2 |              0.0 |               0.0 |              0 |
+
+Note: usage during this period was atypical because maintenance was performed. The system
+was unavailable and jobs that would overlap this period were held.
+
 ## 2024-08
 
 `chen_std` from 2024-08-01 to 2024-08-31
