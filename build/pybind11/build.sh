@@ -1,11 +1,11 @@
 #!/bin/bash
 
-module load gcc/8.4.0
-module load cmake/3.19.1
+module load gcc/9.3.0
 module load python/3.11.1
+module load cmake/3.31.4
 
 package=pybind11
-version=2.13.1
+version=2.13.6
 
 # build info
 user=$(whoami)

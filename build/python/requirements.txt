@@ -5,5 +5,3 @@ mpi4py
 numpy
 relentless
 scipy
-signac
-signac-flow

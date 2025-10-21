@@ -1,9 +1,9 @@
 #!/bin/bash
 
-module load gcc/8.4.0
+module load gcc/9.3.0
 
 package=packmol
-version=20.15.0
+version=21.1.1
 
 # build info
 user=$(whoami)

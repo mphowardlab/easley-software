@@ -1,25 +1,23 @@
 #!/bin/bash
 
-module load gcc/8.4.0
+module load gcc/9.3.0
+module load python/3.11.1
+module load cmake/3.31.4
 
-module load mpich/3.3.2
+module load openmpi/4.1.6c
 module load cereal/1.3.2
+module load pybind11/2.13.6
 
-module load fftw/3.3.10
+module load fftw/3.3.10-openmpi
 module load lapack/3.9.0
 module load eigen/3.4.0
 
-module load python/3.11.1
-module load pybind11/2.13.1
-
-module load cmake/3.19.1
-
 package=python
-version=2024Aug
-hoomd=4.8.2
-azplugins=1.0.0
+version=2025Oct
+hoomd=5.4.0
+azplugins=1.1.0
 lammps_label=stable
-lammps_version=2Aug2023_update3
+lammps_version=22Jul2025_update1
 lammps=${lammps_label}_${lammps_version}
 contents="hoomd ${hoomd}, azplugins ${azplugins}, lammps ${lammps_version}"
 
@@ -57,7 +55,6 @@ cd $build/hoomd && \
 curl -sSLO https://github.com/glotzerlab/hoomd-blue/releases/download/v${hoomd}/hoomd-${hoomd}.tar.gz && \
 tar -xzf hoomd-${hoomd}.tar.gz && \
 cd hoomd-${hoomd} && \
-rm hoomd/example_plugins && \
 mkdir build && \
 cd build && \
 cmake .. \
@@ -72,7 +69,7 @@ cmake .. \
     -DENABLE_TBB=OFF \
     -DHOOMD_LONGREAL_SIZE=64 \
     -DHOOMD_SHORTREAL_SIZE=64 \
-    -Dpybind11_DIR=$GROUP/software/install/pybind11/2.13.1/share/cmake/pybind11 && \
+    -Dpybind11_DIR=$GROUP/software/install/pybind11/2.13.6/share/cmake/pybind11 && \
 make install -j 4
 
 # build azplugins
@@ -88,7 +85,7 @@ cmake .. \
     -DCMAKE_C_FLAGS=-march=native \
     -DCMAKE_CXX_FLAGS=-march=native \
     -DPython_EXECUTABLE=`which python` \
-    -Dpybind11_DIR=$GROUP/software/install/pybind11/2.13.1/share/cmake/pybind11 && \
+    -Dpybind11_DIR=$GROUP/software/install/pybind11/2.13.6/share/cmake/pybind11 && \
 make install -j 4
 
 # build lammps
@@ -106,14 +103,14 @@ cmake ../cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_MPI=ON \
     -DBUILD_OMP=ON \
-    -DOpenMP_gomp_LIBRARY=/tools/gcc-8.4.0/lib64/libgomp.so \
+    -DOpenMP_gomp_LIBRARY=/tools/gcc-9.3.0/lib64/libgomp.so \
     -DBUILD_SHARED_LIBS=ON \
     -DLAMMPS_EXCEPTIONS=ON \
     -DPKG_PYTHON=ON \
     -DPython_ROOT_DIR=$(python3 -c "import sys; print(sys.exec_prefix)") \
     -DPython_FIND_STRATEGY=LOCATION \
     -DFFT=FFTW3 \
-    -DCMAKE_PREFIX_PATH=$GROUP/software/install/fftw/3.3.10/lib64 && \
+    -DCMAKE_PREFIX_PATH=$GROUP/software/install/fftw/3.3.10-openmpi/lib64 && \
 make install -j 4 && \
 make install-python
 

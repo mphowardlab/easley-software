@@ -1,11 +1,11 @@
 #!/bin/bash
 
-module load gcc/8.4.0
-module load mpich/3.3.2
-module load cmake/3.19.1
+module load gcc/9.3.0
+module load openmpi/4.1.6c
+module load cmake/3.31.4
 
 package=fftw
-version=3.3.10
+version=3.3.10-openmpi
 
 # build info
 user=$(whoami)
